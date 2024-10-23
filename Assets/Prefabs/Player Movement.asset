@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2568bdd99ec6acd428c8e2d9d2a02819, type: 3}
+  m_Name: Player Movement
+  m_EditorClassIdentifier: 
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  SnapInput: 0
+  VerticalDeadZoneThreshold: 0.03
+  HorizontalDeadZoneThreshold: 0.01
+  MaxSpeed: 1.4
+  Acceleration: 12
+  GroundDeceleration: 6
+  AirDeceleration: 3
+  GroundingForce: -0.15
+  GrounderDistance: 0.005
+  JumpPower: 24.81
+  MaxFallSpeed: 4
+  FallAcceleration: 11
+  JumpEndEarlyGravityModifier: 0.3
+  CoyoteTime: 0.015
+  JumpBuffer: 0.02
