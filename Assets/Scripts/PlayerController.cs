@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TarodevController
@@ -21,6 +22,8 @@ namespace TarodevController
         private Vector2 _frameVelocity;
         private bool _cachedQueryStartInColliders;
         public bool isFacingRight;
+        Animator animator;
+        SpriteRenderer sprite;
 
         private float _fallSpeedDampingChangeThreshold;
         #region Interface
@@ -81,17 +84,33 @@ namespace TarodevController
             isUpwardSlashRight = false;
             isDownwardSlashRight = false;
             isSideSlashRight = false;
-
+            animator = GetComponent<Animator>();
             _fallSpeedDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
+            sprite = GetComponent<SpriteRenderer>();
         }
 
         private void Update()
         {
             _time += Time.deltaTime;
+
+            if (_grounded)
+            {
+                animator.SetBool("isJumping", false);
+            }
+
             GatherInput();
             InputRemover();
             Attacks();
             DirectionChecker();
+            ChangeLooking();
+
+
+            if(_rb.velocity.y > 0)
+            {
+                animator.SetBool("isJumping", true);
+            }
+            animator.SetFloat("xVelocity", Math.Abs(_rb.velocity.x));
+            animator.SetFloat("yVelocity", _rb.velocity.y);
 
             if (_rb.velocity.y < _fallSpeedDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
             {
@@ -105,19 +124,16 @@ namespace TarodevController
                 CameraManager.instance.LerpYDamping(false);
             }
         }
-
-        
-
         void ChangeLooking()
         {
             if (isFacingRight)
             {
-                transform.GetChild(13).localScale = new Vector2(1f, 1f);
+                sprite.flipX = false;
             }
 
             if (!isFacingRight)
             {
-                transform.GetChild(13).localScale = new Vector2(-1f, 1f);
+                sprite.flipX = true;
             }
         }
 

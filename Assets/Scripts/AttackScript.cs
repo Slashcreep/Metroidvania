@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Threading;
 using TarodevController;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static UnityEditor.Experimental.GraphView.GraphView;
@@ -216,6 +217,11 @@ public class AttackScript : MonoBehaviour
                             if (hitEnemies[i].tag == "Shield" && hitEnemies[j].tag == "Enemy" && Vector2.Distance(gameObject.transform.position, hitEnemies[i].transform.position) < Vector2.Distance(gameObject.transform.position, hitEnemies[j].transform.position))
                             {
                                 doDamage = false;
+                                /*if (hitEnemies[i].GetComponentInParent<EnemyMovement>() != null)
+                                {
+                                    EnemyMovement enemy = hitEnemies[i].GetComponentInParent<EnemyMovement>();
+                                    enemy.rb.AddForce(enemy.pushAmount, ForceMode2D.Impulse);
+                                }*/
                                 Debug.Log(hitEnemies[i].transform.parent.name + " has blocked damage");
 
                             }

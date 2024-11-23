@@ -10,17 +10,20 @@ public class EnemyMovement : MonoBehaviour
     bool isFacingRight;
     public Rigidbody2D rb;
     public Vector2 pushAmount;
+    Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         enemyMovementSpeed = defaultEnemyMovementSpeed;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         rb.AddForce(Vector2.right * enemyMovementSpeed * Time.deltaTime);
         FlipEnemySprite();
+        animator.SetFloat("xVelocity", Mathf.Abs(enemyMovementSpeed));
     }
 
     void OnTriggerExit2D(Collider2D other)
