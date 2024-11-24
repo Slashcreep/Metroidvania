@@ -105,19 +105,19 @@ namespace TarodevController
             ChangeLooking();
 
 
-            if(_rb.velocity.y > 0)
+            if(_rb.linearVelocity.y > 0)
             {
                 animator.SetBool("isJumping", true);
             }
-            animator.SetFloat("xVelocity", Math.Abs(_rb.velocity.x));
-            animator.SetFloat("yVelocity", _rb.velocity.y);
+            animator.SetFloat("xVelocity", Math.Abs(_rb.linearVelocity.x));
+            animator.SetFloat("yVelocity", _rb.linearVelocity.y);
 
-            if (_rb.velocity.y < _fallSpeedDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
+            if (_rb.linearVelocity.y < _fallSpeedDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
             {
                 CameraManager.instance.LerpYDamping(true);
             }
 
-            if (_rb.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping & CameraManager.instance.LerpedFromPlayerFalling)
+            if (_rb.linearVelocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping & CameraManager.instance.LerpedFromPlayerFalling)
             {
                 CameraManager.instance.LerpedFromPlayerFalling = false;
 
@@ -139,12 +139,12 @@ namespace TarodevController
 
         private void DirectionChecker()
         {
-            if (_rb.velocity.x < 0)
+            if (_rb.linearVelocity.x < 0)
             {
                 isFacingRight = false;
             }
 
-            if (_rb.velocity.x > 0)
+            if (_rb.linearVelocity.x > 0)
             {
                 isFacingRight = true;
             }    
@@ -280,7 +280,7 @@ namespace TarodevController
 
         private void HandleJump()
         {
-            if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.velocity.y > 0) _endedJumpEarly = true;
+            if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.linearVelocity.y > 0) _endedJumpEarly = true;
 
             if (!_jumpToConsume && !HasBufferedJump) return;
 
@@ -337,7 +337,7 @@ namespace TarodevController
 
         #endregion
 
-        private void ApplyMovement() => _rb.velocity = _frameVelocity;
+        private void ApplyMovement() => _rb.linearVelocity = _frameVelocity;
 
 #if UNITY_EDITOR
         private void OnValidate()

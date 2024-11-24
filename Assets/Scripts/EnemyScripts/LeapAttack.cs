@@ -31,7 +31,7 @@ public class LeapAttack : MonoBehaviour
     }
     IEnumerator LeapToPlayer()
     {
-        movement.enemyMovementSpeed = movement.rb.velocity.x;
+        movement.enemyMovementSpeed = movement.rb.linearVelocity.x;
         yield return new WaitForSeconds(1);
         movement.rb.AddForce(leap, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.5f);
